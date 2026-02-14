@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💌</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+    overflow: hidden;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+    width: 350px;
+}
+
+h1 {
+    color: #ff4b6e;
+}
+
+p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin: 10px;
+}
+
+#yesBtn {
+    background-color: #ff4b6e;
+    color: white;
+}
+
+#yesBtn:hover {
+    background-color: #ff1f4b;
+    transform: scale(1.1);
+}
+
+#noBtn {
+    background-color: #eee;
+    color: #444;
+    position: absolute;
+    cursor: not-allowed;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 4s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+.gif-style {
+    width: 250px;
+    border-radius: 20px;
+    margin: 20px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: pop 0.6s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Will You Be My Valentine? 💖</h1>
+    <p id="message">
+        I promise to steal your hoodies,<br>
+        send you cute memes,<br>
+        and argue about what to eat.<br><br>
+        Sooo… what’s it gonna be? 😌
+    </p>
+
+    <button id="yesBtn">YES 💘</button>
+    <button id="noBtn">No 🙃</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
+
+let yesClicked = false;
+
+// NO button runs away until YES is clicked
+noBtn.addEventListener("mouseover", () => {
+    if (!yesClicked) {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        const roasts = [
+            "Nice try 😌",
+            "That’s illegal 🚫",
+            "Be serious.",
+            "You thought.",
+            "Nope. Try again 💅",
+            "Wrong answer bestie.",
+            "The audacity 😭"
+        ];
+
+        message.innerHTML = roasts[Math.floor(Math.random() * roasts.length)];
+    }
+});
+
+// YES button click
+yesBtn.addEventListener("click", () => {
+    yesClicked = true;
+
+    document.querySelector(".container").innerHTML = `
+        <h1>YOU SAID YES 😭💖</h1>
+
+        <!-- 💌 REPLACE THE LINK BELOW WITH YOUR GIF -->
+        <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" class="gif-style">
+
+        <p>
+        Officially the cutest couple ever.<br>
+        Valentine's Day = secured. 💘✨<br><br>
+        No refunds. No returns. No backsies.
+        </p>
+
+        <button onclick="finalMessage()">Okay okay 😌</button>
+    `;
+});
+
+function finalMessage() {
+    document.querySelector(".container").innerHTML = `
+        <h1>Too Late 😌💅</h1>
+        <p>
+        You're mine now.<br>
+        Prepare for cute dates,<br>
+        snacks, and excessive affection. 💖
+        </p>
+    `;
+}
+
+// Floating hearts effect
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 4000);
+}, 300);
+</script>
+
+</body>
+</html>
